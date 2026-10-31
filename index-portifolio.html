@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caio Vilas Boas Miranda – Desenvolvedor Full-Stack</title>
+<meta name="description" content="Portfólio de Caio Vilas Boas Miranda, estudante de Engenharia de Software na UnB com foco em backend e full-stack.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+:root{
+  --preto:#000; --branco:#f6f6f6; --cinza1:#3d4143; --cinza2:#9c9d9d; --lima:#e7fc00; --verde:#728e6f;
+  --fonte:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box; color-scheme:dark;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:5rem;background:var(--preto)}
+body{background:var(--preto);color:var(--branco);font:300 1.125rem/1.5 var(--fonte);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+li{list-style:none}
+:focus-visible{outline:3px solid var(--lima);outline-offset:3px}
+::-webkit-scrollbar{width:12px}::-webkit-scrollbar-track{background:var(--preto)}
+::-webkit-scrollbar-thumb{background:var(--cinza1);border-radius:20px;border:3px solid var(--preto)}
+.cx{width:100%;max-width:1400px;margin:0 auto;padding:0 1.2rem}
+.claro{background:var(--branco);color:var(--preto)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease}
+.rv.on{opacity:1;transform:none}
+
+/* header */
+.header{position:fixed;top:0;left:0;width:100%;z-index:99;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding-top:env(safe-area-inset-top,0px)}
+.header .cx{display:flex;justify-content:space-between;align-items:center;padding-top:1.1rem;padding-bottom:1.1rem}
+.logo{font-weight:700;font-size:1.5rem;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--lima)}
+.hamburger{cursor:pointer;display:block}
+.hamburger input{display:none}
+.hamburger svg{height:3em;transition:transform 600ms cubic-bezier(.4,0,.2,1)}
+.line{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:3;transition:stroke-dasharray 600ms cubic-bezier(.4,0,.2,1),stroke-dashoffset 600ms cubic-bezier(.4,0,.2,1)}
+.line-tb{stroke-dasharray:12 63}
+.hamburger input:checked+svg{transform:rotate(-45deg)}
+.hamburger input:checked+svg .line-tb{stroke-dasharray:20 300;stroke-dashoffset:-32.42}
+.menu-aberto{position:fixed;inset:0 0 auto 0;height:0;opacity:0;overflow:hidden;background:var(--preto);z-index:98;display:flex;align-items:center;justify-content:center;transition:height .5s ease-in-out,opacity .5s ease-in-out}
+.menu-aberto.active{height:100vh;height:100dvh;opacity:1}
+.nav-menu{display:flex;flex-direction:column;align-items:center;gap:2.5rem}
+.nav-menu a{font-size:clamp(2rem,7vw,3rem);font-weight:700;opacity:0;transform:translateY(-20px);transition:transform .5s ease-in-out,opacity .5s ease-in-out,color .3s}
+.menu-aberto.active .nav-menu a{opacity:1;transform:none}
+.nav-menu a:hover{color:var(--lima)}
+
+/* início */
+.inicio{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:7rem 1.2rem 8rem;position:relative}
+.inicio .conteudo{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.1rem}
+.inicio h1{font-size:clamp(2rem,5vw + .6rem,4.6rem);font-weight:500;line-height:1.05;letter-spacing:-.025em}
+.inicio h1 + h1{font-weight:300;color:var(--cinza2)}
+.inicio p{font-size:clamp(1.15rem,1.4vw + 1rem,1.8rem);max-width:820px;color:var(--cinza2)}
+.cta{position:relative;margin:.5rem auto 0;padding:12px 18px;border:0;background:none;cursor:pointer;color:var(--branco);display:inline-flex;align-items:center;transition:transform .2s}
+.cta::before{content:"";position:absolute;top:0;left:0;width:45px;height:45px;border-radius:50px;background:var(--verde);transition:width .3s ease}
+.cta span{position:relative;font:700 1.15rem var(--fonte);letter-spacing:.05em}
+.cta svg{position:relative;margin-left:10px;fill:none;stroke:var(--verde);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transform:translateX(-5px);transition:all .3s}
+.cta:hover::before{width:100%}
+.cta:hover svg{transform:none;stroke:var(--lima)}
+.cta:active{transform:scale(.95)}
+.compl{position:absolute;bottom:2rem;left:0;width:100%;display:flex;justify-content:space-between;gap:1rem;padding:0 1.2rem;color:var(--cinza2);font-size:1rem}
+.compl b{font-weight:400;display:inline-flex;align-items:center;gap:.5rem}
+.compl b::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:var(--lima)}
+
+/* sobre */
+.sobre{padding:3rem 0 7rem;overflow:hidden}
+.faixa{overflow:hidden;margin-bottom:4rem}
+.faixa-rola{display:flex;align-items:center;white-space:nowrap;width:max-content;animation:rola 24s linear infinite}
+.faixa-rola span{font-size:clamp(3rem,8vw,5.5rem);text-transform:uppercase;display:flex;align-items:center;line-height:1.2}
+.faixa-rola .b{font-weight:700;color:var(--branco)}
+.faixa-rola .l{font-weight:300;color:var(--cinza2)}
+.faixa-rola .d{width:20px;height:20px;border-radius:50%;background:var(--cinza2);margin:0 20px;flex:none}
+@keyframes rola{to{transform:translateX(-50%)}}
+.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.sobre h2{font-size:clamp(2rem,4vw,3rem);font-weight:500;letter-spacing:-.02em;margin-bottom:1rem}
+.sobre p{font-size:1.4rem;color:var(--cinza2);font-weight:400;line-height:1.4;margin-bottom:1rem}
+.redes{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
+.redes a{display:flex;justify-content:space-between;color:var(--cinza2);font-size:1.5rem;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.15);transition:color .3s}
+.redes a:hover{color:var(--lima)}
+.selo{width:min(100%,26rem);margin:0 auto;display:block}
+.selo .gira{transform-origin:150px 150px;animation:rola-gira 20s linear infinite}
+.selo text{font:500 17px var(--fonte);fill:var(--cinza2);letter-spacing:2px}
+.selo .cv{font:300 64px var(--fonte);fill:var(--branco);letter-spacing:-2px}
+.selo .br{font:400 15px var(--fonte);fill:var(--cinza2);letter-spacing:3px}
+@keyframes rola-gira{to{transform:rotate(360deg)}}
+
+/* skills */
+.skills{padding:4rem 0 7rem}
+.skills .topo{text-align:center;margin-bottom:2.5rem}
+.skills h2{font-size:clamp(2rem,4vw,3rem);font-weight:500;letter-spacing:-.02em}
+.skills .topo p{font-size:1.4rem;color:var(--cinza2);font-weight:400;max-width:800px;margin:.5rem auto 0}
+.skills-grid{display:grid;gap:1rem;grid-template-columns:1fr}
+@media (min-width:600px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.skills-grid{grid-template-columns:repeat(4,1fr)}}
+.box{border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:2rem;min-height:23rem;display:flex;flex-direction:column;justify-content:center;gap:1.2rem}
+.box svg{width:3.8rem;height:3.8rem;fill:none;stroke:var(--branco);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.box h3{font-size:1.8rem;font-weight:500}
+.box p{color:var(--cinza2);font-size:1.2rem;font-weight:400;line-height:1.4}
+
+/* títulos grandes */
+.topo-sec{display:flex;align-items:center;justify-content:space-between;gap:2rem;min-height:40vh}
+.topo-sec h2{font-size:clamp(3.5rem,8vw,8rem);font-weight:300;letter-spacing:-.03em;line-height:1}
+.topo-sec p{max-width:34rem;text-align:right;font-size:clamp(1.2rem,1.6vw,2rem);line-height:1.4;font-weight:400}
+
+/* o que faço */
+.servicos{padding:2rem 0 3rem}
+.cards{display:flex;flex-direction:column;gap:2rem;padding:2rem 0}
+.pilula{border:1px solid rgba(0,0,0,.35);border-radius:150px;min-height:150px;width:95%;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:2rem 2.5rem}
+.pilula.dir{margin-left:5%}
+.pilula h3{font-size:clamp(1rem,2.4vw + .3rem,2rem);font-weight:400;line-height:1.2}
+.pilula span{flex:none;min-width:5.5rem;height:60px;border:1px solid rgba(0,0,0,.35);border-radius:100px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--cinza1)}
+
+/* frase */
+.frase{padding:2rem 0 5rem;overflow:hidden}
+.frase .l{display:flex;align-items:center}
+.frase .l.c{justify-content:center}.frase .l.r{justify-content:flex-end}
+.frase span.w{font-size:clamp(3.5rem,14vw,15rem);font-weight:400;line-height:1.05;letter-spacing:-.03em}
+.frase .ln{flex-grow:1;height:1px;background:var(--cinza2);margin:0 clamp(1rem,4vw,4rem)}
+
+/* projetos */
+.portfolio{padding:2rem 0 7rem}
+.casos{display:flex;flex-direction:column;gap:7rem;padding-top:3rem}
+.caso{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:stretch}
+.caso.inv .midia{order:2}
+.midia{position:relative;min-height:26rem;border:1px solid rgba(255,255,255,.15);border-radius:20px;background:linear-gradient(145deg,#17191c,#050505);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:1.5rem}
+.midia .num{font-size:clamp(7rem,18vw,15rem);font-weight:700;line-height:.9;color:#1d2024;letter-spacing:-.05em}
+.midia ul{display:flex;flex-wrap:wrap;gap:.5rem;position:relative}
+.midia li{border:1px solid rgba(255,255,255,.25);border-radius:50px;padding:.25rem .9rem;font-size:1rem;font-weight:400}
+.texto{display:flex;flex-direction:column;justify-content:center}
+.texto h3{font-size:clamp(2.2rem,5vw,4.5rem);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin-bottom:1.2rem}
+.texto p{color:var(--cinza2);font-size:1.4rem;line-height:1.4;font-weight:400;padding-bottom:1.5rem}
+.pill{align-self:flex-start;height:40px;padding:0 1.6rem;display:inline-flex;align-items:center;background:var(--branco);color:var(--preto);border-radius:50px;font-weight:700;letter-spacing:1.2px;font-size:1.05rem;transition:background .3s}
+.pill:hover{background:var(--lima)}
+.extra{margin-top:5rem;color:var(--cinza2);font-size:1.3rem;font-weight:400;max-width:50rem}
+
+/* contato */
+.contato{padding:2rem 0 4rem}
+.contato .lista{display:flex;flex-direction:column;gap:.4rem;text-align:right}
+.contato .lista a{font-weight:700;font-size:clamp(1rem,2vw,2rem);letter-spacing:1px;word-break:break-all}
+.contato .lista a:hover{text-decoration:underline}
+.cont-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding-top:2rem;align-items:stretch}
+.form-box{display:flex;flex-direction:column;gap:1rem}
+.form-box h3{font-size:2rem;font-weight:500}
+.form-box > p{font-size:1.4rem;color:var(--cinza1);font-weight:400;line-height:1.4}
+.form{display:flex;flex-direction:column;gap:1rem}
+.form input,.form textarea{font:400 1.2rem var(--fonte);width:100%;border-radius:30px;border:2px solid rgba(128,128,128,.5);padding:1rem 1.2rem;background:#fff;color:var(--preto);outline:none}
+.form input:focus,.form textarea:focus{border-color:var(--preto)}
+.form textarea{min-height:9rem;resize:vertical}
+.btn{background:var(--lima);color:var(--preto);font:700 1.1rem var(--fonte);width:190px;padding:1rem 0;border:2px solid rgba(128,128,128,.5);border-radius:30px;cursor:pointer}
+.btn:hover{background:var(--preto);color:var(--lima)}
+.painel{background:var(--preto);color:var(--branco);border-radius:36px;padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;gap:2rem;min-height:22rem}
+.painel strong{font-size:clamp(2rem,3.6vw,3.2rem);font-weight:300;line-height:1.1;letter-spacing:-.02em}
+.painel small{font-size:1.1rem;color:var(--cinza2);font-weight:400}
+
+/* footer */
+.footer{padding:3rem 0 2rem}
+.f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.f-grid nav,.f-grid ul{display:flex;flex-direction:column;gap:.5rem;font-size:1.2rem}
+.f-grid ul{align-items:flex-end}
+.f-grid a:hover{color:var(--lima)}
+.credito{margin-top:2rem;text-align:right;font-size:.95rem;color:var(--cinza2)}
+
+/* terminal e status */
+.inicio .term{font:400 1rem ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--cinza2);max-width:none;margin-bottom:.4rem}
+.inicio .term span{color:var(--lima)}
+.cursor{display:inline-block;width:.55em;height:1em;background:var(--lima);margin-left:.2em;vertical-align:-.15em;animation:pisca 1.1s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+.status{display:inline-flex;align-items:center;gap:.6rem;border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:.3rem 1rem;font-size:1rem;font-weight:400;color:var(--cinza2);margin-top:.5rem}
+.status::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:var(--lima);animation:pulso 2s ease-in-out infinite}
+@keyframes pulso{50%{opacity:.3}}
+.compl a{transition:color .3s}.compl a:hover{color:var(--lima)}
+
+/* faixa de tecnologias */
+.tecs{overflow:hidden;border-block:1px solid rgba(255,255,255,.15);padding:1.2rem 0}
+.tecs-rola{display:flex;align-items:center;width:max-content;animation:rola 45s linear infinite}
+.tecs:hover .tecs-rola{animation-play-state:paused}
+.tecs-rola span{display:flex;align-items:center;white-space:nowrap;font-size:clamp(1.3rem,2.4vw,2rem);font-weight:400;color:var(--cinza2)}
+.tecs-rola span::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--verde);margin:0 1.6rem;flex:none}
+
+/* cartões de resumo */
+.resumo{padding:0 0 5rem;margin-top:-4rem}
+.resumo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem}
+.res{border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:1.6rem 1.8rem;display:flex;flex-direction:column;gap:.4rem}
+.res small{font-size:1rem;color:var(--cinza2);font-weight:400;letter-spacing:.04em}
+.res strong{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:500;line-height:1.15;letter-spacing:-.01em}
+.res span{font-size:1.1rem;color:var(--cinza2);font-weight:400}
+
+/* copiar e-mail */
+.copia{display:inline-flex;align-items:center;gap:1rem;align-self:flex-start;font:500 1.1rem var(--fonte);background:var(--preto);color:var(--branco);border:0;border-radius:50px;padding:.8rem 1.4rem;cursor:pointer;text-align:left;word-break:break-all;transition:transform .2s}
+.copia span{color:var(--lima);font-weight:700;flex:none}
+.copia:hover{transform:translateY(-2px)}
+
+/* topo */
+#topo{position:fixed;left:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:50px;height:50px;border-radius:50%;border:0;background:var(--branco);color:var(--preto);cursor:pointer;z-index:90;opacity:0;pointer-events:none;transition:opacity .5s;box-shadow:0 0 10px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}
+#topo.on{opacity:1;pointer-events:auto}
+#topo svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+@media (max-width:1024px){
+  .sobre-grid,.caso,.cont-grid{grid-template-columns:1fr}
+  .caso.inv .midia{order:0}
+  .topo-sec{flex-direction:column;align-items:flex-start;min-height:0;padding:2rem 0}
+  .topo-sec p{text-align:left;max-width:none}
+  .contato .lista{text-align:left}
+  .midia{min-height:20rem}
+}
+@media (max-width:640px){
+  .pilula{border-radius:60px;padding:1.2rem 1.4rem;min-height:110px;gap:1rem}
+  .pilula span{min-width:4rem;height:48px;font-size:1.1rem}
+  .f-grid{grid-template-columns:1fr}.f-grid ul{align-items:flex-start}.credito{text-align:left}
+  .compl{flex-direction:column;align-items:center;text-align:center}
+  .casos{gap:4rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .faixa-rola,.selo .gira,.tecs-rola,.cursor,.status::before{animation:none}
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="cx">
+    <a class="logo" href="#inicio" aria-label="Início">cvbm<i>.</i></a>
+    <label class="hamburger" aria-label="Abrir menu">
+      <input type="checkbox" id="menuToggle">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path class="line line-tb" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+        <path class="line" d="M7 16 27 16"></path>
+      </svg>
+    </label>
+  </div>
+</header>
+<div class="menu-aberto" id="menu">
+  <nav class="nav-menu">
+    <a href="#inicio">INÍCIO</a>
+    <a href="#sobre">SOBRE</a>
+    <a href="#skills">SKILLS</a>
+    <a href="#projetos">PROJETOS</a>
+    <a href="#contato">CONTATO</a>
+  </nav>
+</div>
+
+<main>
+  <section id="inicio" class="inicio">
+    <div class="conteudo rv">
+      <p class="term"><span id="digita" data-txt="caio@unb:~$ whoami">caio@unb:~$ whoami</span><i class="cursor" aria-hidden="true"></i></p>
+      <h1>Caio Vilas Boas Miranda</h1>
+      <h1>Desenvolvedor Full-Stack</h1>
+      <p>Estudante de Engenharia de Software na UnB, com foco em backend e aplicações web. Do banco de dados à interface.</p>
+      <span class="status">Disponível para estágio</span>
+      <a class="cta" href="#contato">
+        <span>Fale Comigo</span>
+        <svg width="15" height="10" viewBox="0 0 13 10" aria-hidden="true"><path d="M1,5 L11,5"></path><polyline points="8 1 12 5 8 9"></polyline></svg>
+      </a>
+    </div>
+    <div class="compl"><span>Brasília, Brasil</span><a href="#sobre">SCROLL ↓</a></div>
+  </section>
+
+  <div class="tecs" role="img" aria-label="Tecnologias: Python, C#, JavaScript, C, SQL, Node.js, Django, .NET, React, Next.js, PostgreSQL, Supabase, Docker, Git, GitHub Actions, Linux">
+    <div class="tecs-rola" id="tecs" aria-hidden="true"><span>Python</span><span>C#</span><span>JavaScript</span><span>C</span><span>SQL</span><span>Node.js</span><span>Django</span><span>.NET</span><span>React</span><span>Next.js</span><span>PostgreSQL</span><span>Supabase</span><span>Docker</span><span>Git</span><span>GitHub Actions</span><span>Linux</span></div>
+  </div>
+
+  <section id="sobre" class="sobre">
+    <div class="faixa rv"><div class="faixa-rola" id="faixa">
+      <span class="b">Sobre</span><span class="d"></span><span class="l">Sobre</span><span class="d"></span><span class="b">Sobre</span><span class="d"></span><span class="l">Sobre</span><span class="d"></span>
+    </div></div>
+    <div class="cx sobre-grid">
+      <div class="rv">
+        <h2>Olá, me chamo Caio</h2>
+        <p>Estudo Engenharia de Software na Universidade de Brasília (campus FCTE, Gama), com previsão de conclusão em 06/2028.</p>
+        <p>Construo sistemas de ponta a ponta: modelagem de banco de dados, APIs no backend e interfaces dinâmicas no frontend. No dia a dia trabalho em Linux (Ubuntu), no terminal, aplicando TDD e Clean Code.</p>
+        <div class="redes">
+          <a href="https://github.com/cvbmiranda">GITHUB <span>→</span></a>
+          <a href="https://www.linkedin.com/in/caio-vilas-boas-miranda-637439271">LINKEDIN <span>→</span></a>
+          <a href="mailto:caiovilasboasmiranda123@outlook.com">E-MAIL <span>→</span></a>
+        </div>
+      </div>
+      <div class="rv">
+        <svg class="selo" viewBox="0 0 300 300" role="img" aria-label="Engenharia de Software, UnB, full-stack">
+          <defs><path id="circ" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs>
+          <g class="gira"><text><textPath href="#circ" textLength="738" lengthAdjust="spacing">ENGENHARIA DE SOFTWARE • UNB • BACKEND • FULL-STACK • </textPath></text></g>
+          <text class="cv" x="150" y="168" text-anchor="middle">CVBM</text>
+          <text class="br" x="150" y="196" text-anchor="middle">BRASÍLIA</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="resumo" aria-label="Resumo">
+    <div class="cx resumo-grid">
+      <div class="res rv"><small>Formação</small><strong>Engenharia de Software</strong><span>UnB (FCTE) · previsão 06/2028</span></div>
+      <div class="res rv"><small>Foco</small><strong>Backend e full-stack</strong><span>APIs, bancos de dados e interfaces web</span></div>
+      <div class="res rv"><small>Idiomas</small><strong>Inglês proficiente</strong><span>Português nativo · Francês iniciante</span></div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills">
+    <div class="cx">
+      <div class="topo rv">
+        <h2>Minhas Skills</h2>
+        <p>Tecnologias que uso para construir aplicações completas.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="box rv">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="8" width="36" height="12" rx="3"/><rect x="6" y="28" width="36" height="12" rx="3"/><path d="M13 14h.01M13 34h.01"/></svg>
+          <h3>Backend e APIs</h3>
+          <p>Node.js, Django, .NET e APIs REST, com Python, C# e JavaScript.</p>
+        </div>
+        <div class="box rv">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="3"/><path d="M5 17h38M12 13h.01M17 13h.01"/></svg>
+          <h3>Frontend</h3>
+          <p>Interfaces com React e Next.js, em HTML5 e CSS3.</p>
+        </div>
+        <div class="box rv">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="11" rx="15" ry="5"/><path d="M9 11v13c0 2.8 6.7 5 15 5s15-2.2 15-5V11M9 24v13c0 2.8 6.7 5 15 5s15-2.2 15-5V24"/></svg>
+          <h3>Bancos de dados</h3>
+          <p>Modelagem relacional com PostgreSQL, Supabase e SQL.</p>
+        </div>
+        <div class="box rv">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 41 14.5v19L24 43 7 33.5v-19z"/><path d="M7 14.5 24 24l17-9.5M24 24v19"/></svg>
+          <h3>DevOps e qualidade</h3>
+          <p>Docker, Git, GitHub Actions, Linux (Ubuntu), TDD e Clean Code.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicos" class="servicos claro">
+    <div class="cx">
+      <div class="topo-sec rv">
+        <h2>O que faço</h2>
+        <p>Do banco de dados à interface, construindo sistemas de ponta a ponta.</p>
+      </div>
+      <div class="cards">
+        <div class="pilula rv"><h3>APIs REST e backend com Node.js, Django e .NET</h3><span>01</span></div>
+        <div class="pilula dir rv"><h3>Interfaces com React e Next.js</h3><span>02</span></div>
+        <div class="pilula rv"><h3>Modelagem de bancos de dados relacionais</h3><span>03</span></div>
+        <div class="pilula dir rv"><h3>Integração contínua com GitHub Actions</h3><span>04</span></div>
+        <div class="pilula rv"><h3>Aplicações conteinerizadas com Docker</h3><span>05</span></div>
+        <div class="pilula dir rv"><h3>Código testado e limpo, com TDD e Clean Code</h3><span>06</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="frase claro" aria-label="Criar soluções reais">
+    <div class="cx">
+      <div class="l rv"><span class="w">CRIAR</span><span class="ln"></span></div>
+      <div class="l c rv"><span class="ln"></span><span class="w">SOLUÇÕES</span><span class="ln"></span></div>
+      <div class="l r rv"><span class="ln"></span><span class="w">REAIS</span></div>
+    </div>
+  </section>
+
+  <section id="projetos" class="portfolio">
+    <div class="cx">
+      <div class="topo-sec rv">
+        <h2>Projetos</h2>
+        <p>Alguns dos sistemas que desenvolvi na faculdade e por conta própria.</p>
+      </div>
+      <div class="casos">
+        <article class="caso rv">
+          <div class="midia"><span class="num">01</span><ul><li>React</li><li>Next.js</li><li>Supabase</li><li>GitHub Actions</li></ul></div>
+          <div class="texto">
+            <h3>WorldCup Hub 2026</h3>
+            <p>Aplicação web para simular a Copa do Mundo de 2026. Interface em React e Next.js, backend sobre Supabase com as regras de negócio da simulação e integração contínua via GitHub Actions.</p>
+            <a class="pill" href="https://github.com/cvbmiranda/worldcup-hub-2026">VER NO GITHUB</a>
+          </div>
+        </article>
+        <article class="caso inv rv">
+          <div class="midia"><span class="num">02</span><ul><li>Django</li><li>PostgreSQL</li><li>React</li><li>Next.js</li><li>Docker</li></ul></div>
+          <div class="texto">
+            <h3>GitFica</h3>
+            <p>Sistema acadêmico de gestão de incidentes integrado à API do GitHub, com login via OAuth, motor de gamificação (ranking e badges) e aplicação conteinerizada com Docker. Desenvolvido em equipe.</p>
+            <a class="pill" href="https://github.com/fga-eps-mds/2025.1-SGI-Backend">VER NO GITHUB</a>
+          </div>
+        </article>
+        <article class="caso rv">
+          <div class="midia"><span class="num">03</span><ul><li>Node.js</li><li>React</li><li>Next.js</li><li>Supabase</li><li>SQL</li></ul></div>
+          <div class="texto">
+            <h3>LeoniHub</h3>
+            <p>Plataforma de gestão de varejo para duas lojas de aluguel de roupas: controle de estoque e locações, autenticação e permissões por perfil, com frontend em React e Next.js e backend em Node.js.</p>
+            <a class="pill" href="https://github.com/mdsreq-fga-unb/REQ-2025.2-T02-LeoniHub">VER NO GITHUB</a>
+          </div>
+        </article>
+        <article class="caso inv rv">
+          <div class="midia"><span class="num">04</span><ul><li>.NET 10</li><li>PostgreSQL</li><li>JWT</li><li>Docker</li></ul></div>
+          <div class="texto">
+            <h3>Sistema de Reservas</h3>
+            <p>API RESTful em .NET 10 para gerenciar reservas de mesas de um restaurante, com PostgreSQL e Entity Framework Core, autenticação JWT com controle de acesso por função, senhas protegidas com BCrypt e execução via Docker Compose.</p>
+            <a class="pill" href="https://github.com/cvbmiranda/SistemaReservasApi">VER NO GITHUB</a>
+          </div>
+        </article>
+        <article class="caso rv">
+          <div class="midia"><span class="num">05</span><ul><li>.NET 10</li><li>RabbitMQ</li><li>PostgreSQL</li><li>JWT</li></ul></div>
+          <div class="texto">
+            <h3>Notificações Assíncronas</h3>
+            <p>Sistema distribuído com arquitetura orientada a eventos: um API Gateway em ASP.NET Core valida as requisições com JWT, grava o estado no PostgreSQL e publica na fila do RabbitMQ, e um worker em segundo plano processa as entregas.</p>
+            <a class="pill" href="https://github.com/cvbmiranda/SistemaNotificacao">VER NO GITHUB</a>
+          </div>
+        </article>
+      </div>
+      <p class="extra rv">Também no GitHub: um detector de sensacionalismo em newsletters de tecnologia (Machine Learning e processamento de linguagem natural) e o <a href="https://github.com/cvbmiranda/arcadia" style="color:var(--branco);text-decoration:underline;text-underline-offset:4px">Arcadia &amp; Games</a>, com jogos clássicos em Python (POO) e multiplayer em tempo real via WebSockets.</p>
+    </div>
+  </section>
+
+  <section id="contato" class="contato claro">
+    <div class="cx">
+      <div class="topo-sec rv">
+        <h2>Contato</h2>
+        <div class="lista">
+          <a href="mailto:caiovilasboasmiranda123@outlook.com">caiovilasboasmiranda123@outlook.com</a>
+          <a href="https://github.com/cvbmiranda">github.com/cvbmiranda</a>
+          <a href="https://www.linkedin.com/in/caio-vilas-boas-miranda-637439271">LinkedIn</a>
+        </div>
+      </div>
+      <div class="cont-grid">
+        <div class="form-box rv">
+          <h3>Bora construir algo incrível juntos?</h3>
+          <p>Estou procurando um estágio em desenvolvimento. Copie meu e-mail com um clique ou escreva uma mensagem abaixo.</p>
+          <button class="copia" id="copia" type="button" data-email="caiovilasboasmiranda123@outlook.com">caiovilasboasmiranda123@outlook.com <span id="copiaTxt">copiar</span></button>
+          <form class="form" id="form">
+            <input type="text" id="nome" placeholder="Seu nome completo" required aria-label="Seu nome completo">
+            <input type="email" id="email" placeholder="Seu melhor e-mail" required aria-label="Seu melhor e-mail">
+            <textarea id="msg" placeholder="Escreva o que você deseja aqui…" required aria-label="Mensagem"></textarea>
+            <button class="btn" type="submit">Enviar</button>
+          </form>
+        </div>
+        <div class="painel rv">
+          <strong>Buscando estágio em desenvolvimento backend e full-stack.</strong>
+          <small>Brasília, Brasil · Português nativo, inglês proficiente</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="cx">
+    <div class="f-grid">
+      <a class="logo" href="#inicio">cvbm<i>.</i></a>
+      <nav aria-label="Rodapé"><a href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#skills">Skills</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a></nav>
+      <ul><li><a href="https://github.com/cvbmiranda">GitHub</a></li><li><a href="https://www.linkedin.com/in/caio-vilas-boas-miranda-637439271">LinkedIn</a></li><li><a href="mailto:caiovilasboasmiranda123@outlook.com">E-mail</a></li></ul>
+    </div>
+    <p class="credito">© <span id="ano">2026</span> Caio Vilas Boas Miranda. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<button id="topo" type="button" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button>
+
+<script>
+(function(){
+  var chk=document.getElementById("menuToggle"), menu=document.getElementById("menu"), topo=document.getElementById("topo");
+  function abre(on){ chk.checked=on; menu.classList.toggle("active",on); document.body.style.overflow=on?"hidden":""; }
+  chk.addEventListener("change",function(){abre(chk.checked)});
+  menu.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){abre(false)})});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")abre(false)});
+
+  var f=document.getElementById("faixa"); f.innerHTML+=f.innerHTML;
+  document.getElementById("ano").textContent=new Date().getFullYear();
+
+  var tc=document.getElementById("tecs"); tc.innerHTML+=tc.innerHTML;
+  var dg=document.getElementById("digita"), tx=dg.getAttribute("data-txt");
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    dg.textContent=""; var ix=0;
+    (function tipo(){ if(ix<=tx.length){ dg.textContent=tx.slice(0,ix++); setTimeout(tipo,90); } })();
+  }
+
+  var cb=document.getElementById("copia"), ct=document.getElementById("copiaTxt");
+  function copiado(){ ct.textContent="copiado!"; setTimeout(function(){ct.textContent="copiar"},2000); }
+  function falha(){ ct.textContent="não consegui copiar"; }
+  function alternativa(t){ var a=document.createElement("textarea"); a.value=t; a.style.position="fixed"; a.style.opacity="0"; document.body.appendChild(a); a.select(); var r=false; try{ r=document.execCommand("copy"); }catch(e){} document.body.removeChild(a); return r; }
+  cb.addEventListener("click",function(){
+    var t=cb.getAttribute("data-email");
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(copiado,function(){ alternativa(t)?copiado():falha(); });
+    } else { alternativa(t)?copiado():falha(); }
+  });
+
+  window.addEventListener("scroll",function(){topo.classList.toggle("on",window.scrollY>400)},{passive:true});
+  topo.addEventListener("click",function(){window.scrollTo({top:0})});
+
+  var els=document.querySelectorAll(".rv");
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
+    els.forEach(function(el){io.observe(el)});
+  } else { els.forEach(function(el){el.classList.add("on")}); }
+
+  document.getElementById("form").addEventListener("submit",function(e){
+    e.preventDefault();
+    var n=document.getElementById("nome").value, m=document.getElementById("email").value, t=document.getElementById("msg").value;
+    var corpo=t+"\n\n"+n+"\n"+m;
+    window.location.href="mailto:caiovilasboasmiranda123@outlook.com?subject="+encodeURIComponent("Contato pelo portfólio – "+n)+"&body="+encodeURIComponent(corpo);
+  });
+})();
+</script>
+</body>
+</html>
